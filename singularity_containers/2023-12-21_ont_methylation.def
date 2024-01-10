@@ -1,0 +1,103 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+%post
+
+        ## Make Shell Noninteractive ##
+        DEBIAN_FRONTEND=noninteractive
+
+        ## Install basic packages and get update
+        apt-get update && apt-get install -y \
+		locales \
+		libarchive-dev \
+		sudo \
+		wget \
+		curl \
+        	git \
+		rclone \
+		cargo \
+		gcc \
+		cmake \
+		g++ 
+		 
+		
+
+	## Set timezone and language for container ##
+        ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
+
+        export LANGUAGE=en_US.UTF-8
+        export LANG=en_US.UTF-8
+        export LC_ALL=en_US.UTF-8
+        sudo locale-gen en_US.UTF-8
+
+        echo 'export LANGUAGE="en_US.UTF8"' >> $SINGULARITY_ENVIRONMENT
+        echo 'export LANG="en_US.UTF8"' >> $SINGULARITY_ENVIRONMENT
+        echo 'export LC_ALL="en_US.UTF8"' >> $SINGULARITY_ENVIRONMENT
+	
+
+	## Install miniconda ##
+        cd /
+        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+        bash Miniconda3-latest-Linux-x86_64.sh -bfp /conda
+        export PATH="/conda/bin:$PATH"
+        echo 'export PATH="/conda/bin:$PATH"' >> $SINGULARITY_ENVIRONMENT
+        conda config --add channels bioconda
+        conda config --add channels conda-forge
+	
+	## Install python packages ##
+        pip install pod5 pycoQC
+
+        ## Install samtools ##
+        conda install -c bioconda samtools bedtools multiqc 
+
+	## Install modkit ##
+        cd /
+        cargo install --git https://github.com/nanoporetech/modkit.git
+        echo 'export PATH="/root/.cargo/bin/:$PATH"' >> $SINGULARITY_ENVIRONMENT
+
+	## Install Dorado ##
+	cd /
+	mkdir installations
+	cd /installations/
+	wget https://cdn.oxfordnanoportal.com/software/analysis/dorado-0.5.0-linux-x64.tar.gz
+	tar -xzvf dorado-0.5.0-linux-x64.tar.gz
+	echo 'export PATH="/installations/dorado-0.5.0-linux-x64/bin/:$PATH"' >> $SINGULARITY_ENVIRONMENT	
+
+%test
+		
+	## Check if installations are on path and/or display their versions ##
+	dorado --version # Dorado
+	pod5 --version # Pod5 converter	
+	samtools --version # Samtools
+	modkit --version # Modkit
+	pycoQC --version #pycoQC
+	multiqc --version #multiQC
+	bedtools --version #bedtools
+	
+%labels
+	author Bernardo Aguzzoli Heberle
+	version v0.1.0
+
+%help
+
+	Software included in the container are:
+
+	dorado==0.5.0+0d932c0
+	samtools==1.9
+	python==3.11.5
+		pod5==0.3.2
+		pycoQC==2.5.2
+        conda==23.11.0
+        pip==23.3.1
+ 	bedtools==2.31.0
+	multiqc==1.19 
+	
+
+        NOTE THAT VERSIONS OF THE SOFTWARE INSTALLED WILL CHANGE THROUGH TIME IF YOU BUILD THE IMAGE FROM THE RECIPE FILE.
+        TO GET THE ORIGINAL VERSION OF THIS CONTAINER PULL IT FROM THE SINGULARITY LIB WITH THE COMMAND:
+
+	singularity pull --arch amd64 library://bernardo-a-heberle/dcnl/ont_methylation:sha256.55c5e2c5cfbcfed11277fd8d4df272b858a8cc1e51f873c414a01d38debe2de0 
+
+	
+	For more information about the use of this singularity container access: XXX
+

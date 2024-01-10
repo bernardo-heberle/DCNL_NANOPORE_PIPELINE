@@ -2,7 +2,7 @@
 
 include {FAST5_to_POD5; BASECALL_CPU; BASECALL_CPU_DEMUX; BASECALL_GPU; BASECALL_GPU_DEMUX} from '../modules/basecall.nf'
 
-workflow NANOPORE_STEP_1 {
+workflow BASECALLING {
         
     take:
         pod5_path
@@ -13,6 +13,8 @@ workflow NANOPORE_STEP_1 {
         trim
         quality_score
         trim_barcode
+	devices
+	ref
 
     main:
 
@@ -25,11 +27,11 @@ workflow NANOPORE_STEP_1 {
         
         if (params.basecall_demux == true) {
 
-           BASECALL_CPU_DEMUX(pod5_path, speed, modifications, config, trim, quality_score, trim_barcode)
+           BASECALL_CPU_DEMUX(pod5_path, speed, modifications, config, trim, quality_score, trim_barcode, devices, ref)
         
         } else {
             
-            BASECALL_CPU(pod5_path, speed, modifications, config, trim, quality_score)
+            BASECALL_CPU(pod5_path, speed, modifications, config, trim, quality_score, devices, ref)
 
         }
     
@@ -37,11 +39,11 @@ workflow NANOPORE_STEP_1 {
         
         if (params.basecall_demux == true) {
 
-            BASECALL_GPU_DEMUX(pod5_path, speed, modifications, config, trim, quality_score, trim_barcode)
+            BASECALL_GPU_DEMUX(pod5_path, speed, modifications, config, trim, quality_score, trim_barcode, devices, ref)
 
         } else {
 
-            BASECALL_GPU(pod5_path, speed, modifications, config, trim, quality_score, trim_barcode)
+            BASECALL_GPU(pod5_path, speed, modifications, config, trim, quality_score, trim_barcode, devices, ref)
 
         }
 

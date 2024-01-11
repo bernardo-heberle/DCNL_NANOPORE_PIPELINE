@@ -27,9 +27,9 @@ NextFlow pipeline used by the Developmental Cognitive Neuroscience Lab (DCNL) to
 - refecence/assembly ".fa" file specific to your organism of interest.
   
 
-### 5) Set SINGULARITY_CACHEDIR environmental variable to your desired directory:
+### 5) Set NXF_SINGULARITY_CACHEDIR environment variable to your desired directory:
 
-          echo "SINGULARITY_CACHEDIR=/<your>/<desired>/<path>/" >> ~/.bash_profile && . ~/.bash_profile
+          echo "NXF_SINGULARITY_CACHEDIR=/<your>/<desired>/<path>/" >> ~/.bash_profile && . ~/.bash_profile
 
 
 ## Pipeline parameters:

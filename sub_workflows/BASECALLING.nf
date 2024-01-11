@@ -43,7 +43,7 @@ workflow BASECALLING {
 
         } else {
 
-            BASECALL_GPU(pod5_path, speed, modifications, config, trim, quality_score, trim_barcode, devices, ref)
+            BASECALL_GPU(pod5_path, speed, modifications, config, trim, quality_score, devices, ref)
 
         }
 

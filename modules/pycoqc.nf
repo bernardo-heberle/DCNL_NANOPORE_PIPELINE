@@ -1,6 +1,6 @@
 process PYCOQC {
 
-    publishDir "results/${params.out_dir}/multiQC_input/pycoqc/", mode: 'copy', overwrite: true, pattern: "*pycoqc*"
+    publishDir "results/${params.out_dir}/pycoqc/", mode: 'copy', overwrite: true, pattern: "*pycoqc*"
 
     label 'cpu'
 

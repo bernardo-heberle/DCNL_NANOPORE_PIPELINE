@@ -60,7 +60,7 @@ Many of the parameters for this step are based on dorado basecaller, see their [
                               the basecaller will automatically pick the basecall configuration.
                               Example: "dna_r9.4.1_e8_hac@v3.3". Default: "None">
 
---basecall_trim              <"all", "primers", "adapters", "none". Default: "None">
+--basecall_trim              <"all", "primers", "adapters", "none". Default: "none">
 
 --qscore_thresh              <Mean quality score threshold for basecalled reads to be considered passing. Default: 9>
 
@@ -87,7 +87,9 @@ Many of the parameters for this step are based on dorado basecaller, see their [
                               Default: "output_directory">
 ```
 
-## Submission example:
+## Submission examples:
+
+### GPU basecalling without demultiplexing
 ```
 nextflow ../workflow/main.nf --basecall_path "../../data/test_data/" \
         --basecall_speed "hac" \
@@ -101,7 +103,20 @@ nextflow ../workflow/main.nf --basecall_path "../../data/test_data/" \
         --out_dir "test_basecall_gpu_no_demux_mouse"
   ```
 
-
+### GPU basecalling with demultiplexing
+```
+nextflow ../workflow/main.nf --basecall_path "../data/test_data/" \
+        --basecall_speed "hac" \
+        --ref "../references/mouse_reference.fa" \
+        --gpu_devices "all" \
+        --basecall_mods "5mC_5hmC" \
+        --basecall_config "False" \
+        --basecall_trim "none" \
+        --basecall_compute "gpu" \
+        --basecall_demux "True" \
+        --trim_barcode "True" \
+        --out_dir "test_basecall_gpu_demux_mouse"
+```
 
 ## Pipeline output directory description:
 

@@ -2,7 +2,7 @@ process FILTER_BAM {
 
     publishDir "results/${params.out_dir}/bam_filtering/", mode: "copy", pattern: "*"
     
-    label 'medium_small'
+    label 'cpu'
 
     input:
         path(bam)

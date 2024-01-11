@@ -16,7 +16,7 @@ NextFlow pipeline used by the Developmental Cognitive Neuroscience Lab (DCNL) to
           
 ### 3) Clone this github repo using the command below
 
-  `git clone https://github.com/bernardo-heberle/DCNL_NANOPORE_PIPELINE`
+`git clone https://github.com/bernardo-heberle/DCNL_NANOPORE_PIPELINE`
 
 
 
@@ -25,6 +25,7 @@ NextFlow pipeline used by the Developmental Cognitive Neuroscience Lab (DCNL) to
 - ".fast5" or ".pod5" files.
 
 - refecence/assembly ".fa" file specific to your model organism.
+- 
 
 ### 5) Set SINGULARITY_CACHEDIR environmental variable to your desired directory:
 

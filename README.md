@@ -31,7 +31,7 @@ git clone https://github.com/bernardo-heberle/DCNL_NANOPORE_PIPELINE
 ### 5) Set NXF_SINGULARITY_CACHEDIR environment variable to your desired directory:
 
 ```
-echo 'NXF_SINGULARITY_CACHEDIR="/<your>/<desired>/<path>/"' >> ~/.bash_profile && . ~/.bash_profile
+echo "" >> ~/.bash_profile && echo 'NXF_SINGULARITY_CACHEDIR="/<your>/<desired>/<path>/"' >> ~/.bash_profile && echo 'export NXF_SINGULARITY_CACHEDIR' >> ~/.bash_profile && . ~/.bash_profile
 ```
 
 ## Pipeline parameters:

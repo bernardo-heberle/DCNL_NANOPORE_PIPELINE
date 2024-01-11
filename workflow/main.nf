@@ -7,7 +7,7 @@ log.info """
  path containing samples and files to be basecalled (basecall only)             : ${params.basecall_path}
  basecall speed (basecall only)                                                 : ${params.basecall_speed}
  basecall modifications  (basecall only)                                        : ${params.basecall_mods}
- basecall config (If "None" the basecaller will automatically pick one)         : ${params.basecall_config}
+ basecall config (If "false" the basecaller will automatically pick one)        : ${params.basecall_config}
  basecall read trimming option                                                  : ${params.basecall_trim}
  basecall quality score threshold for basecalling                               : ${params.qscore_thresh}
  basecall demultiplexing                                                        : ${params.basecall_demux}

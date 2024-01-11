@@ -56,9 +56,9 @@ Many of the parameters for this step are based on dorado basecaller, see their [
                               when basecalling with CPU to make it less slow. Default: "gpu">
 
 --basecall_config             <configuration name for basecalling setting. This is not necessary since dorado 
-                              is able to automatically determine the appropriate configuration. When set to "None"
+                              is able to automatically determine the appropriate configuration. When set to "false"
                               the basecaller will automatically pick the basecall configuration.
-                              Example: "dna_r9.4.1_e8_hac@v3.3". Default: "None">
+                              Example: "dna_r9.4.1_e8_hac@v3.3". Default: "false">
 
 --basecall_trim              <"all", "primers", "adapters", "none". Default: "none">
 

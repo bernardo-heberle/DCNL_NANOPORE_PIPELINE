@@ -24,22 +24,15 @@ NextFlow pipeline used by the Developmental Cognitive Neuroscience Lab (DCNL) to
           
 - ".fast5" or ".pod5" files.
 
-- refecence/assembly ".fa" file specific to your model organism.
-- 
+- refecence/assembly ".fa" file specific to your organism of interest.
+  
 
 ### 5) Set SINGULARITY_CACHEDIR environmental variable to your desired directory:
 
           echo "SINGULARITY_CACHEDIR=/<your>/<desired>/<path>/" >> ~/.bash_profile && . ~/.bash_profile
 
 
-
-
-##  
-## For documentation of pipeline output click on the `OUTPUT_DESCRIPTION.md` file in this repository.
-## 
-
-
-## Pipeline parameters
+## Pipeline parameters:
 
 Many of the parameters for this step are based on dorado basecaller, see their [documentation](https://github.com/nanoporetech/dorado) to understand it better.
 
@@ -102,6 +95,10 @@ Many of the parameters for this step are based on dorado basecaller, see their [
                   --basecall_demux "False" \
                   --outdir "test_basecall_gpu_no_demux_mouse"
   
+
+
+
+## Pipeline output:
 
 
     `

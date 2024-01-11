@@ -95,6 +95,7 @@ nextflow ../workflow/main.nf --basecall_path "../../data/test_data/" \
         --basecall_speed "hac" \
         --ref "../references/mouse_reference.fa" \
         --gpu_devices "all" \
+        --qscore_thresh "9" \
         --basecall_mods "5mC_5hmC" \
         --basecall_config "False" \
         --basecall_trim "none" \
@@ -109,6 +110,7 @@ nextflow ../workflow/main.nf --basecall_path "../data/test_data/" \
         --basecall_speed "hac" \
         --ref "../references/mouse_reference.fa" \
         --gpu_devices "all" \
+        --qscore_thresh "9" \
         --basecall_mods "5mC_5hmC" \
         --basecall_config "False" \
         --basecall_trim "none" \

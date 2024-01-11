@@ -15,7 +15,6 @@ log.info """
  submission output file prefix                                                  : ${params.prefix}
  GPU device for submission							: ${params.gpu_devices}
 
- step: 1 = basecalling, 2 = mapping, 3 = quantification                         : ${params.step}
  Output directory                                                               : ${params.out_dir}
  =====================================================================================================================================================================================
  

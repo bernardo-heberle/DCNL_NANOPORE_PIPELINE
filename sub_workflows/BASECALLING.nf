@@ -2,6 +2,7 @@
 
 include {FAST5_to_POD5; BASECALL_CPU; BASECALL_CPU_DEMUX; BASECALL_GPU; BASECALL_GPU_DEMUX} from '../modules/basecall.nf'
 include {PYCOQC} from '../modules/pycoqc.nf'
+include {FILTER_BAM} from '../modules/filter_bam.nf'
 
 workflow BASECALLING {
         
@@ -15,6 +16,7 @@ workflow BASECALLING {
         quality_score
         trim_barcode
 	devices
+	mapq
 	ref
 
     main:
@@ -64,9 +66,8 @@ workflow BASECALLING {
     }
 
 
-    bams.view()
-    txts.view()
     PYCOQC(bams, txts, quality_score)
+    FILTER_BAM(bams, mapq)
 
 
 }

@@ -65,6 +65,9 @@ process BASECALL_CPU {
             fi
         fi
 
+        samtools sort -@ -12 "${id}.bam" -o "${id}_sorted.bam"
+        rm "${id}.bam"
+        mv "${id}_sorted.bam" "${id}.bam"
 
         dorado summary "${id}.bam" > "${id}.txt"
 
@@ -118,6 +121,10 @@ process BASECALL_CPU_DEMUX {
 
             fi
         fi
+
+        samtools sort -@ -12 "${id}.bam" -o "${id}_sorted.bam"
+        rm "${id}.bam"
+        mv "${id}_sorted.bam" "${id}.bam"
        
         if [[ "$trim_barcode" == "true" ]]; then
             dorado demux --output-dir "./demux_data/" --no-classify "${id}.bam"
@@ -128,7 +135,8 @@ process BASECALL_CPU_DEMUX {
         cd ./demux_data/
        
         for file in *; do
-            mv "\$file" "${id}_\${file}"
+            samtools sort -@ -12 "\$file" -o "${id}_\${file}"
+            rm "\$file"
         done
 
         cd ../
@@ -192,6 +200,9 @@ process BASECALL_GPU {
             fi
         fi
 
+        samtools sort -@ -12 "${id}.bam" -o "${id}_sorted.bam"
+        rm "${id}.bam"
+        mv "${id}_sorted.bam" "${id}.bam"
 
         dorado summary "${id}.bam" > "${id}.txt"
 

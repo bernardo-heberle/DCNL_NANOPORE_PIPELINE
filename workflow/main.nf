@@ -14,6 +14,7 @@ log.info """
  trim barcodes during demultiplexing                                            : ${params.trim_barcode}
  submission output file prefix                                                  : ${params.prefix}
  GPU device for submission							: ${params.gpu_devices}
+ MAPQ filtering threshold							: ${params.mapq}
 
  Output directory                                                               : ${params.out_dir}
  =====================================================================================================================================================================================
@@ -57,6 +58,6 @@ devices = Channel.value(params.gpu_devices)
 
 workflow {
 	
-    BASECALLING(pod5_path, fast5_path, basecall_speed, basecall_mods, basecall_config, basecall_trim, quality_score, trim_barcode, devices, ref)
+    BASECALLING(pod5_path, fast5_path, basecall_speed, basecall_mods, basecall_config, basecall_trim, quality_score, trim_barcode, devices, mapq, ref)
 
 }

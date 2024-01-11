@@ -101,7 +101,7 @@ nextflow ../workflow/main.nf --basecall_path "../../data/test_data/" \
         --basecall_trim "none" \
         --basecall_compute "gpu" \
         --basecall_demux "False" \
-        --out_dir "test_basecall_gpu_no_demux_mouse"
+        --out_dir "test_basecall_gpu_no_demux_mouse" -resume
   ```
 
 ### GPU basecalling with demultiplexing
@@ -117,7 +117,7 @@ nextflow ../workflow/main.nf --basecall_path "../data/test_data/" \
         --basecall_compute "gpu" \
         --basecall_demux "True" \
         --trim_barcode "True" \
-        --out_dir "test_basecall_gpu_demux_mouse"
+        --out_dir "test_basecall_gpu_demux_mouse" -resume
 ```
 
 ## Pipeline output directory description:

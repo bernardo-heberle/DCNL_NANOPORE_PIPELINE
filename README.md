@@ -98,7 +98,10 @@ Many of the parameters for this step are based on dorado basecaller, see their [
 
 
 
-## Pipeline output:
+## Pipeline output directory description:
 
+1. fast5_to_pod5 - One directory per sample. Only exists for sample that had any fast5 files converted into pod5 files for more efficient basecalling with Dorado.
 
+2. basecalling_output - Dorado basecalling output. One fastq file per sample and one sequencing summary file per sample. Reads for the
+                        same run will be separated into different fastq files based on barcode when demultiplexing is enabled.
     `

@@ -28,11 +28,14 @@ workflow BASECALLING {
         if (params.basecall_demux == true) {
 
            BASECALL_CPU_DEMUX(pod5_path, speed, modifications, config, trim, quality_score, trim_barcode, devices, ref)
+
+	   BASECALL_CPU_DEMUX.out.view()
         
         } else {
             
             BASECALL_CPU(pod5_path, speed, modifications, config, trim, quality_score, devices, ref)
-
+	    
+	    BASECALL_CPU.out.view()
         }
     
     } else if (params.basecall_compute?.equalsIgnoreCase("gpu")) {
@@ -41,10 +44,13 @@ workflow BASECALLING {
 
             BASECALL_GPU_DEMUX(pod5_path, speed, modifications, config, trim, quality_score, trim_barcode, devices, ref)
 
+  	    BASECALL_GPU_DEMUX.out.view()
+
         } else {
 
             BASECALL_GPU(pod5_path, speed, modifications, config, trim, quality_score, devices, ref)
 
+	    BASECALL_GPU.out.view()
         }
 
     }

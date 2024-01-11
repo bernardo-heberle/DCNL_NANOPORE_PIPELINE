@@ -37,8 +37,7 @@ process BASECALL_CPU {
 	path ref
 
     output:
-        path("*.bam"), emit: bam
-        path("*.txt"), emit: txt
+	tuple path("*.bam"), path("*.txt")
 
    script:
         """
@@ -90,8 +89,7 @@ process BASECALL_CPU_DEMUX {
 	path ref
 
     output:
-        path("*.bam"), emit: bam
-        path("*.txt"), emit: txt
+	tuple path("*.bam"), path("*.txt")
 
    script:
         """
@@ -162,8 +160,7 @@ process BASECALL_GPU {
 	path ref
 
     output:
-	path("*.bam"), emit: bam
-        path("*.txt"), emit: txt
+	tuple path("*.bam"), path("*.txt")
 
    script:
         """
@@ -215,9 +212,7 @@ process BASECALL_GPU_DEMUX {
 	path ref
 
     output:
-	path("*.bam"), emit: bam
-	path("*.txt"), emit: txt
-
+	tuple path("*.bam"), path("*.txt")
 
    script:
         """

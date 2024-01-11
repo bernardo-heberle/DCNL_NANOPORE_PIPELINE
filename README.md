@@ -16,8 +16,9 @@ NextFlow pipeline used by the Developmental Cognitive Neuroscience Lab (DCNL) to
           
 ### 3) Clone this github repo using the command below
 
-`git clone https://github.com/bernardo-heberle/DCNL_NANOPORE_PIPELINE`
-
+```
+git clone https://github.com/bernardo-heberle/DCNL_NANOPORE_PIPELINE
+```
 
 
 ### 4) Make sure you have all the sequencing files and reference genomes/assemblies files and annotation files you will need to run the pipeline.
@@ -29,8 +30,9 @@ NextFlow pipeline used by the Developmental Cognitive Neuroscience Lab (DCNL) to
 
 ### 5) Set NXF_SINGULARITY_CACHEDIR environment variable to your desired directory:
 
-`echo "NXF_SINGULARITY_CACHEDIR=/<your>/<desired>/<path>/" >> ~/.bash_profile && . ~/.bash_profile`
-
+```
+echo "NXF_SINGULARITY_CACHEDIR=/<your>/<desired>/<path>/" >> ~/.bash_profile && . ~/.bash_profile
+```
 
 ## Pipeline parameters:
 

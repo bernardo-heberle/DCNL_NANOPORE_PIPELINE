@@ -127,16 +127,16 @@ nextflow ../workflow/main.nf --basecall_path "../data/test_data/" \
 
 ## Pipeline output directory description:
 
-1. fast5_to_pod5 - One directory per sample. Only exists for sample that had any fast5 files converted into pod5 files for more efficient basecalling with Dorado.
+1. **fast5_to_pod5** - One directory per sample. Only exists for sample that had any fast5 files converted into pod5 files for more efficient basecalling with Dorado.
 
-2. basecalling_output - Dorado basecalling output. One ".bam" and ".bai" file per sample (already mapped to the reference genome of choice and sorted).
+2. **basecalling_output** - Dorado basecalling output. One ".bam" and ".bai" file per sample (already mapped to the reference genome of choice and sorted).
                         Also includes one sequencing summary file per sample. Reads for the same run will be separated into different fastq files
                         based on barcode when demultiplexing is enabled.
    
-3. pycoqc - Includes pycoQC quality control reports for each sample. PycoQC reports are output in both ".html" and ".json" format. The ".html" files can be imported into
+3. **pycoqc** - Includes pycoQC quality control reports for each sample. PycoQC reports are output in both ".html" and ".json" format. The ".html" files can be imported into
             a personal computer and opened using any internet browser to provide a quick glance basic statistics from the sequencing run.
 
-5. bam_filtering - Output from filtering bam files. Filtered files only include primary alignments with MAPQ greater than or equal to what the user specified.
+5. **bam_filtering** - Output from filtering bam files. Filtered files only include primary alignments with MAPQ greater than or equal to what the user specified.
                    This directory includes samtools ".flagstat" and ".idxstat" files before and after filtering by MAPQ. The ".flagstat" file shows the number of
                    aligned reads for a sample and ".idxstat" file shows the number of reads aligned to each chromosome. This directory also includes the filtered and sorted
                    ".bam" and ".bai" files.

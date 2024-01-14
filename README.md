@@ -82,6 +82,9 @@ Many of the parameters for this step are based on dorado basecaller, see their [
                                when wanting to keep track of batches of data.
                                Example: "Batch_1". Default value is "None" which does not add any prefixes>
 
+--mapq                      <Integer, set it to the number you want to be used to filter ".bam" file by mapq. --mapq 10 filters out reads
+                              with MAPQ < 10. set it to 0 if don't want to filter out any reads. Default: 0>
+
 --out_dir                    <Name of output directory. Output files/directories will be output to
                               "./results/<out_dir>/" in the directory you submitted the pipeline from.
                               Default: "output_directory">
@@ -100,6 +103,7 @@ nextflow ../workflow/main.nf --basecall_path "../../data/test_data/" \
         --basecall_config "False" \
         --basecall_trim "none" \
         --basecall_compute "gpu" \
+        --mapq "10" \
         --basecall_demux "False" \
         --out_dir "test_basecall_gpu_no_demux_mouse" -resume
   ```
@@ -116,6 +120,7 @@ nextflow ../workflow/main.nf --basecall_path "../data/test_data/" \
         --basecall_trim "none" \
         --basecall_compute "gpu" \
         --basecall_demux "True" \
+        --mapq "10" \
         --trim_barcode "True" \
         --out_dir "test_basecall_gpu_demux_mouse" -resume
 ```
@@ -124,6 +129,14 @@ nextflow ../workflow/main.nf --basecall_path "../data/test_data/" \
 
 1. fast5_to_pod5 - One directory per sample. Only exists for sample that had any fast5 files converted into pod5 files for more efficient basecalling with Dorado.
 
-2. basecalling_output - Dorado basecalling output. One fastq file per sample and one sequencing summary file per sample. Reads for the
-                        same run will be separated into different fastq files based on barcode when demultiplexing is enabled.
-    `
+2. basecalling_output - Dorado basecalling output. One ".bam" and ".bai" file per sample (already mapped to the reference genome of choice and sorted).
+                        Also includes one sequencing summary file per sample. Reads for the same run will be separated into different fastq files
+                        based on barcode when demultiplexing is enabled.
+   
+3. pycoqc - Includes pycoQC quality control reports for each sample. PycoQC reports are output in both ".html" and ".json" format. The ".html" files can be imported into
+            a personal computer and opened using any internet browser to provide a quick glance basic statistics from the sequencing run.
+
+5. bam_filtering - Output from filtering bam files. Filtered files only include primary alignments with MAPQ greater than or equal to what the user specified.
+                   This directory includes samtools ".flagstat" and ".idxstat" files before and after filtering by MAPQ. The ".flagstat" file shows the number of
+                   aligned reads for a sample and ".idxstat" file shows the number of reads aligned to each chromosome. This directory also includes the filtered and sorted
+                   ".bam" and ".bai" files.

@@ -25,6 +25,8 @@ log.info """
 
 // Import Workflows
 include {BASECALLING} from '../sub_workflows/BASECALLING'
+include {FILTERING_AND_QC} from '../sub_workflows/FILTERING_AND_QC.nf'
+include {MODKIT_AND_MULTIQC} from '../sub_workflows/MODKIT_AND_MULTIQC.nf'
 
 
 // Define initial files and channels
@@ -58,7 +60,22 @@ devices = Channel.value(params.gpu_devices)
 
 
 workflow {
-	
-    BASECALLING(pod5_path, fast5_path, basecall_speed, basecall_mods, basecall_config, basecall_trim, quality_score, trim_barcode, devices, mapq, ref)
+
+    if (params.step == 1) {
+
+        BASECALLING(pod5_path, fast5_path, basecall_speed, basecall_mods, basecall_config, basecall_trim, quality_score, trim_barcode, devices, ref)
+    }
+
+    else if (params.step == 2) {
+
+        FILTERING_AND_QC(mapq)
+
+    }
+
+    else if (params.step == 3) {
+    
+        MODKIT_AND_MULTIQC()
+
+    }
 
 }

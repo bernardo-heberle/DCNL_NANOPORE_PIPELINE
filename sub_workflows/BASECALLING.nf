@@ -16,7 +16,6 @@ workflow BASECALLING {
         quality_score
         trim_barcode
 	devices
-	mapq
 	ref
 
     main:

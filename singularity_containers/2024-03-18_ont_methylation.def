@@ -19,7 +19,7 @@ From: ubuntu:22.04
 		gcc \
 		cmake \
 		g++ \
-                jq
+		jq
 		 
 		
 
@@ -75,10 +75,11 @@ From: ubuntu:22.04
 	pycoQC --version #pycoQC
 	multiqc --version #multiQC
 	bedtools --version #bedtools
+	jq --version	#jq
 	
 %labels
 	author Bernardo Aguzzoli Heberle
-	version v0.20
+	version v0.3.0
 
 %help
 
@@ -93,13 +94,14 @@ From: ubuntu:22.04
         pip==23.3.1
  	bedtools==2.31.1
 	multiqc==1.17
-		 
+	jq==1.6	 
 	
 
         NOTE THAT VERSIONS OF THE SOFTWARE INSTALLED WILL CHANGE THROUGH TIME IF YOU BUILD THE IMAGE FROM THE RECIPE FILE.
         TO GET THE ORIGINAL VERSION OF THIS CONTAINER PULL IT FROM THE SINGULARITY LIB WITH THE COMMAND:
-
-	singularity pull --arch amd64 library://bernardo-a-heberle/dcnl/ont_methylation:sha256.ff2e107314af69e1c8a9bf01432632d73b30d8525d59c79f78336ef4b8c5cd48
+	
+	singularity pull --arch amd64 library://bernardo-a-heberle/dcnl/ont_methylation:sha256.d4ccdf4552bfc4cdbb4ad0908bd20a8e537ac50281d1f722402c5d7204c705b2	
+	
 	
 	For more information about the use of this singularity container access: https://github.com/bernardo-heberle/DCNL_NANOPORE_PIPELINE
 

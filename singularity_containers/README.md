@@ -2,6 +2,6 @@
 
 2024-03-18_ont_methylation.def - definition file for singularity container with all software for this pipeline.
 
-pull command: `singularity pull --arch amd64 library://bernardo-a-heberle/dcnl/ont_methylation:sha256.ff2e107314af69e1c8a9bf01432632d73b30d8525d59c79f78336ef4b8c5cd48`
+pull command: `singularity pull --arch amd64 library://bernardo-a-heberle/dcnl/ont_methylation:sha256.d4ccdf4552bfc4cdbb4ad0908bd20a8e537ac50281d1f722402c5d7204c705b2`
 
 ### For more information about software versions see the %help section of definition (.def) files for the singularity images.

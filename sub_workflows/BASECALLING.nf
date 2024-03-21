@@ -1,8 +1,6 @@
 // Import Modules
 
 include {FAST5_to_POD5; BASECALL_CPU; BASECALL_CPU_DEMUX; BASECALL_GPU; BASECALL_GPU_DEMUX} from '../modules/basecall.nf'
-include {PYCOQC} from '../modules/pycoqc.nf'
-include {FILTER_BAM} from '../modules/filter_bam.nf'
 
 workflow BASECALLING {
         

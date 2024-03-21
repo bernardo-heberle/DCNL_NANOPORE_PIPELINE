@@ -1,7 +1,7 @@
 // Make this pipeline a nextflow 2 implementation
 nextflow.enable.dsl=2
 
-
+println params.step
 
 if (params.step == 1) {
 log.info """

@@ -18,7 +18,8 @@ From: ubuntu:22.04
 		cargo \
 		gcc \
 		cmake \
-		g++ 
+		g++ \
+                jq
 		 
 		
 

@@ -1,13 +1,13 @@
 process PYCOQC_NO_FILTER {
 
-    publishDir "results/${params.out_dir}/multiqc_input/pycoqc/", mode: 'copy', overwrite: true, pattern: "*pycoqc*"
+    publishDir "results/${params.out_dir}/multiqc_input/pycoqc_no_filter/", mode: 'copy', overwrite: true, pattern: "*pycoqc*"
 
     label 'cpu'
 
     input:
         val(id)
         path(total_bam)
-        path(total_bam)
+        path(total_bai)
         path(filtered_bam)
         path(filtered_bai)
         path(unfiltered_flagstat)
@@ -17,11 +17,11 @@ process PYCOQC_NO_FILTER {
 
     output:
         val("${id}"), emit: id
-        path("${filtered_bam}")
-        path("${filtered_bai}")
-        path("${unfiltered_flagstat}")
-        path("${filtered_flagstat}")
-        path("${seq_summary}")
+        path("${filtered_bam}"), emit: filtered_bam
+        path("${filtered_bai}"), emit: filtered_bai
+        path("${unfiltered_flagstat}"), emit: unfiltered_flagstat
+        path("${filtered_flagstat}"), emit: filtered_flagstat
+        path("${seq_summary}"), emit: txt
         path("*.html"), emit: unfiltered_pyco_html
         path("*.json"), emit: unfiltered_pyco_json
          
@@ -32,8 +32,8 @@ process PYCOQC_NO_FILTER {
 	
         pycoQC -f "${seq_summary}" \
             -v \
-            -a $total_bam \
-            --min_pass_qual $quality_score \
+            -a "${total_bam}" \
+            --min_pass_qual "${quality_score}" \
             -o "./${id}-Unfiltered_pycoqc.html" \
             -j "./${id}-Unfiltered_pycoqc.json"
 
@@ -43,7 +43,7 @@ process PYCOQC_NO_FILTER {
 process PYCOQC_FILTER {
 
 
-    publishDir "results/${params.out_dir}/multiqc_input/pycoqc/", mode: 'copy', overwrite: true, pattern: "*pycoqc*"
+    publishDir "results/${params.out_dir}/multiqc_input/pycoqc_filtered/", mode: 'copy', overwrite: true, pattern: "*pycoqc*"
 
     label 'cpu'
 
@@ -59,9 +59,9 @@ process PYCOQC_FILTER {
 
 
     output:
-        val("${id}")
-        path("${unfiltered_flagstat}")
-        path("${filtered_flagstat}")
+        val("${id}"), emit: id
+        path("${unfiltered_flagstat}"), emit: unfiltered_flagstat
+        path("${filtered_flagstat}"), emit: filtered_flagstat
         path("${unfiltered_pyco_json}"), emit: unfiltered_pyco_json
         path("*-Filtered*.html"), emit: filtered_pyco_html
         path("*-Filtered*.json"), emit: filtered_pyco_json
@@ -72,11 +72,10 @@ process PYCOQC_FILTER {
 	
         pycoQC -f "${seq_summary}" \
             -v \
-            -a $filtered_bam \
-            --min_pass_qual $quality_score \
+            -a "${filtered_bam}" \
+            --min_pass_qual "${quality_score}" \
             -o "./${id}-Filtered_pycoqc.html" \
             -j "./${id}-Filtered_pycoqc.json"
 
         """
 }
-

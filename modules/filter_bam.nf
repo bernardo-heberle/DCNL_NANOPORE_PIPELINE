@@ -1,6 +1,6 @@
 process FILTER_BAM {
 
-    publishDir "results/${params.out_dir}/bam_filtering/", mode: "copy", pattern: "*", overwrite: true
+    publishDir "results/${params.out_dir}/bam_filtering/", mode: "copy", pattern: "*.ba*", overwrite: true
     publishDir "results/${params.out_dir}/multiQC_input/minimap2/", mode: "copy", pattern: "*.*stat", overwrite: true
      
 
@@ -19,6 +19,7 @@ process FILTER_BAM {
         path("*-Filtered*.bai"), emit: filtered_bai
         path("*-Unfiltered*.flagstat"), emit: unfiltered_flagstat
         path("*-Filtered*.flagstat"), emit: filtered_flagstat
+        path("${txt}"), emit: txt
         path("*.*stat"), emit: multiqc
 
     script:

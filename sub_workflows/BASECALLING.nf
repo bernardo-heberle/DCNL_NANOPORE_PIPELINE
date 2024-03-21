@@ -64,9 +64,4 @@ workflow BASECALLING {
 
     }
 
-
-    PYCOQC(bams, txts, quality_score)
-    FILTER_BAM(bams, mapq)
-
-
 }

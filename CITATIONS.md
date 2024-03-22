@@ -1,10 +1,12 @@
 # Citations
 
+
 ## Main
 
 [Nextflow](https://www.nextflow.io/docs/latest/index.html)
 
 [Singularity](https://docs.sylabs.io/guides/latest/user-guide/)
+
 
 ## Basecalling
 
@@ -12,47 +14,27 @@
 
 [dorado](https://github.com/nanoporetech/dorado)
 
-## Pre-processing
-
-[Pychopper](https://github.com/epi2me-labs/pychopper)
-
-[Porechop_ABI](https://github.com/bonsai-team/Porechop_ABI)
-
 
 ## Quality Control
 
 [PycoQC](https://github.com/a-slide/pycoQC)
 
-[RSeQC](https://rseqc.sourceforge.net/)
-
 [MultiQC](https://multiqc.info/)
 
 
-## Mapping
+## Alignment
 
 [Minimap2](https://github.com/lh3/minimap2)
 
 
-## Transcriptomics
+## Methylation Calling
 
-[GFFread](https://github.com/gpertea/gffread)
-
-[GFFcompare](https://ccb.jhu.edu/software/stringtie/gffcompare.shtml)
-
-[Bambu](https://github.com/GoekeLab/bambu)
+[Modkit](https://github.com/nanoporetech/modkit)
 
 
 ## Other Genomics Tools
 
 [Samtools](https://github.com/samtools/samtools)
-
-
-## R Packages
-
-[BioConductor](https://www.bioconductor.org/)
-
-[Bambu](https://github.com/GoekeLab/bambu)
-
 
 
 ## Other

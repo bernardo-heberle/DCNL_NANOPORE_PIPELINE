@@ -97,7 +97,10 @@ Many of the parameters for this step are based on dorado basecaller, see their [
 ## Parameters for step 2 (Alignment Filtering and Quality Control):
 
 ```
---step
+--step                                  <Type: Integer. Options are integers 1, 2, 3. Select 1 for basecalling. Select 2 for alignment
+                                        filtering and quality control. Select 3 for methylation call pre-processing
+                                        with modkit and generating a thorough multiQC report for sequencing stats.
+                                        This parameter needs to be set for the pipeline to run. Default: "None">
 
 --steps_2_and_3_input_directory          <This parameter must be set to the output path of step 1 set with the out_dir parameter.
                                           For example "./results/<out_dir>". Default = "None">

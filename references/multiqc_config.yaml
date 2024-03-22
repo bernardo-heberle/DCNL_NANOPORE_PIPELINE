@@ -5,7 +5,7 @@ sp:
 
 extra_fn_clean_exts:
     - type: regex_keep
-      pattern: "^[^_]*_[^_]*_[^_]*_"
+      pattern: "^[^_]*_[^_]*_[^_]*_[^_]*_"
 
     
 

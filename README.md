@@ -175,13 +175,13 @@ nextflow ../DCNL_NANOPORE_PIPELINE/workflow/main.nf \
                                   Also includes one sequencing summary file per sample. Reads for the same run will be separated into different fastq files
                                   based on barcode when demultiplexing is enabled.
    
-3. **multiqc_input/pycoqc_no_filter** - Includes pycoQC quality control reports for each sample with metrics prior to alignment filtering by MAPQ.
-                                           PycoQC reports are output in both ".html" and ".json" format. The ".html" files can be imported into
-                                           a personal computer and opened using any internet browser to provide a quick glance basic statistics from the sequencing run.
+3. **pycoqc_no_filter** - Includes pycoQC quality control reports for each sample with metrics prior to alignment filtering by MAPQ.
+                                   PycoQC reports are output in both ".html" and ".json" format. The ".html" files can be imported into
+                                   a personal computer and opened using any internet browser to provide a quick glance basic statistics from the sequencing run.
 
-4. **multiqc_input/pycoqc_filtered** - Includes pycoQC quality control reports for each sample with metrics post alignment filtering by MAPQ.
-                                           PycoQC reports are output in both ".html" and ".json" format. The ".html" files can be imported into
-                                           a personal computer and opened using any internet browser to provide a quick glance basic statistics from the sequencing run.
+4. **pycoqc_filtered** - Includes pycoQC quality control reports for each sample with metrics post alignment filtering by MAPQ.
+                                  PycoQC reports are output in both ".html" and ".json" format. The ".html" files can be imported into
+                                  a personal computer and opened using any internet browser to provide a quick glance basic statistics from the sequencing run.
 
 5. **multiqc_input/minimap2** - Includes ".flagstat" and ".idxstat" files generate with samtools from before and after alignment filtering. These files show number
                                         of reads per sample and number of reads per chromosome. This information is integrated in the final multiQC report.

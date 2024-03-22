@@ -154,15 +154,17 @@ nextflow ../DCNL_NANOPORE_PIPELINE/workflow/main.nf --basecall_path "../data/tes
 ### STEP 2: Alignment Filtering and Quality Control
 
 ```
-nextflow ../DCNL_NANOPORE_PIPELINE/workflow/main.nf --steps_2_and_3_input_directory "./results/test_basecall_gpu_no_demux_mouse/" \
-        --qscore_thresh 9 --mapq 10 --step 2 -resume
+nextflow ../DCNL_NANOPORE_PIPELINE/workflow/main.nf \
+          --steps_2_and_3_input_directory "./results/test_basecall_gpu_no_demux_mouse/" \
+          --qscore_thresh 9 --mapq 10 --step 2 -resume
 ```
 
 ### STEP 3: Methylation calling and MultiQC report:
 
 ```
-nextflow ../DCNL_NANOPORE_PIPELINE/workflow/main.nf --steps_2_and_3_input_directory "./results/test_basecall_gpu_no_demux_mouse/" \
-        --multiqc_config "../DCNL_NANOPORE_PIPELINE/references/multiqc_config.yaml" --step 3 -resume
+nextflow ../DCNL_NANOPORE_PIPELINE/workflow/main.nf \
+          --steps_2_and_3_input_directory "./results/test_basecall_gpu_no_demux_mouse/" \
+          --multiqc_config "../DCNL_NANOPORE_PIPELINE/references/multiqc_config.yaml" --step 3 -resume
 
 ```
 ## Pipeline output directory description:

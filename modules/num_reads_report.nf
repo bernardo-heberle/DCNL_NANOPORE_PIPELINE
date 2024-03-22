@@ -1,8 +1,8 @@
 process MAKE_QC_REPORT {
     
-    publishDir "results/${params.out_dir}/intermediate_qc_reports/number_of_reads/", pattern: "*num_reads.tsv", mode: "copy", overwrite: true
-    publishDir "results/${params.out_dir}/intermediate_qc_reports/read_length/", pattern: "*length.tsv", mode: "copy", overwrite: true
-    publishDir "results/${params.out_dir}/intermediate_qc_reports/quality_score_thresholds/", pattern: "*thresholds.tsv", mode: "copy", overwrite: true
+    publishDir "${params.steps_2_and_3_input_directory}/intermediate_qc_reports/number_of_reads/", pattern: "*num_reads.tsv", mode: "copy", overwrite: true
+    publishDir "${params.steps_2_and_3_input_directory}/intermediate_qc_reports/read_length/", pattern: "*length.tsv", mode: "copy", overwrite: true
+    publishDir "${params.steps_2_and_3_input_directory}/intermediate_qc_reports/quality_score_thresholds/", pattern: "*thresholds.tsv", mode: "copy", overwrite: true
     
     label 'cpu'
 
@@ -26,9 +26,9 @@ process MAKE_QC_REPORT {
  
         num_pass_reads=\$(jq '.["Pass Reads"].basecall.reads_number' "${unfiltered_pyco_json}") 
       
-        num_primary_alignments=\$(grep "primary mapped" "${flagstat_unfiltered}" | awk 'print \$1}')
+        num_primary_alignments=\$(grep "primary mapped" "${unfiltered_flagstat}" | awk {'print \$1}')
 
-        num_primary_alignments_filtered=\$(grep "primary mapped" "${flagstat_filtered}" | awk '{print \$1}')
+        num_primary_alignments_filtered=\$(grep "primary mapped" "${filtered_flagstat}" | awk '{print \$1}')
        
         N50_fastq_all=\$(jq '.["All Reads"].basecall.N50' "${unfiltered_pyco_json}")
 
@@ -58,7 +58,7 @@ process MAKE_QC_REPORT {
 
 process MERGE_QC_REPORT {
 
-    publishDir "results/${params.out_dir}/reads_report/", pattern: "*", mode: "copy", overwrite: true
+    publishDir "${params.steps_2_and_3_input_directory}/reads_report/", pattern: "*", mode: "copy", overwrite: true
 
     label 'cpu'
 
@@ -77,7 +77,7 @@ process MERGE_QC_REPORT {
         echo "# id: 'number of reads custom'" >> "Number_of_Reads_mqc.tsv" 
         echo "# section_name: 'Number of reads per sample'" >> "Number_of_Reads_mqc.tsv" 
         echo "Sample_ID\tAll Reads\tPass Reads\tPrimary Alignments\tFiltered Primary Alignments (MAPQ)" >> "Number_of_Reads_mqc.tsv" 
-        cat "Number_of_Reads.tsv" >> "Number_of_Reads_mqc.tsv"
+        cat $num_reads >> "Number_of_Reads_mqc.tsv"
 
 
         

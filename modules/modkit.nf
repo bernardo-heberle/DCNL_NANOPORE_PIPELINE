@@ -1,6 +1,6 @@
 process MODKIT {
 
-    publishDir "results/${params.out_dir}/modkit/", mode: "copy", pattern: "*", overwrite: true
+    publishDir "${params.steps_2_and_3_input_directory}/modkit/", mode: "copy", pattern: "*", overwrite: true
      
 
     label 'cpu'
@@ -22,7 +22,7 @@ process MODKIT {
         modkit pileup -t 12 "${bam}" "${id}_modkit_pileup.bed" --log-filepath "${id}_modkit_pileup.log"
 
         ## Make Summary
-        modkit summary ${bam} --no-sampling
+        modkit summary ${bam} --no-sampling > "${id}_modkit_summary.txt"
 
 
         """

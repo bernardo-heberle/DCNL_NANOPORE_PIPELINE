@@ -1,7 +1,6 @@
 // Make this pipeline a nextflow 2 implementation
 nextflow.enable.dsl=2
 
-println params.step
 
 if (params.step == 1) {
 log.info """
@@ -23,7 +22,7 @@ Output directory                                                               :
 
 ======================================================================================================================================================================================
  
- """ 
+""" 
  } else if (params.step == 2) {
 
 """
@@ -80,9 +79,9 @@ if (params.step == 1) {
 
     if (params.prefix == "None") {
 
-            fast5_path = Channel.fromPath("${params.basecall_path}/**.fast5").map{file -> tuple(file.parent.toString().split("/")[-2] + "_" + file.simpleName.split('_')[0] + "_" + file.simpleName.split('_')[-3..-2].join("_"), file) }.groupTuple()
+            fast5_path = Channel.fromPath("${params.basecall_path}/**.fast5").map{file -> tuple(file.parent.toString().split("/")[-3] + "_" + file.simpleName.split('_')[0] + "_" + file.simpleName.split('_')[-3..-2].join("_"), file) }.groupTuple()
         
-            pod5_path = Channel.fromPath("${params.basecall_path}/**.pod5").map{file -> tuple(file.parent.toString().split("/")[-2] + "_" + file.simpleName.split('_')[0] + "_" + file.simpleName.split('_')[-3..-2].join("_"), file) }.groupTuple()
+            pod5_path = Channel.fromPath("${params.basecall_path}/**.pod5").map{file -> tuple(file.parent.toString().split("/")[-3] + "_" + file.simpleName.split('_')[0] + "_" + file.simpleName.split('_')[-3..-2].join("_"), file) }.groupTuple()
 
     } else {
 
@@ -106,7 +105,7 @@ if (params.step == 1) {
 
 else if (params.step == 2) {
 
-    total_bams = Channel.fromPath("${params.steps_2_and_3_input_directory}/basecalling_output/*.bam").toSortedList( { a, b -> a[0] <=> b[0] } ).flatten().buffer(size:2)
+    total_bams = Channel.fromPath("${params.steps_2_and_3_input_directory}/basecalling_output/*.bam").map {file -> tuple(file.baseName, file) }.toSortedList( { a, b -> a[0] <=> b[0] } ).flatten().buffer(size:2)
     txts = Channel.fromPath("${params.steps_2_and_3_input_directory}/basecalling_output/*.txt").toSortedList( { a, b -> a.baseName <=> b.baseName } ).flatten()
     mapq = Channel.value(params.mapq)
     quality_score = Channel.value(params.qscore_thresh)
@@ -117,7 +116,7 @@ else if (params.step == 2) {
 else if (params.step == 3) {
 
     
-    filtered_bams = Channel.fromPath("${params.steps_2_and_3_input_directory}/bam_filtering/*-Filtered*.bam").toSortedList( { a, b -> a[0] <=> b[0] } ).flatten().buffer(size:2) 
+    filtered_bams = Channel.fromPath("${params.steps_2_and_3_input_directory}/bam_filtering/*-Filtered*.bam").map {file -> tuple(file.baseName, file) }.toSortedList( { a, b -> a[0] <=> b[0] } ).flatten().buffer(size:2) 
     filtered_bais = Channel.fromPath("${params.steps_2_and_3_input_directory}/bam_filtering/*-Filtered*.bam.bai").toSortedList( { a, b -> a.baseName <=> b.baseName } ).flatten() 
     num_reads = Channel.fromPath("${params.steps_2_and_3_input_directory}/intermediate_qc_reports/number_of_reads/*")
     read_length = Channel.fromPath("${params.steps_2_and_3_input_directory}/intermediate_qc_reports/read_length/*") 

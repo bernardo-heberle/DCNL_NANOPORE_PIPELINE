@@ -1,6 +1,6 @@
 process PYCOQC_NO_FILTER {
 
-    publishDir "results/${params.out_dir}/multiqc_input/pycoqc_no_filter/", mode: 'copy', overwrite: true, pattern: "*pycoqc*"
+    publishDir "${params.steps_2_and_3_input_directory}/multiqc_input/pycoqc_no_filter/", mode: 'copy', overwrite: true, pattern: "*-Unfiltered_pycoqc*"
 
     label 'cpu'
 
@@ -43,7 +43,7 @@ process PYCOQC_NO_FILTER {
 process PYCOQC_FILTER {
 
 
-    publishDir "results/${params.out_dir}/multiqc_input/pycoqc_filtered/", mode: 'copy', overwrite: true, pattern: "*pycoqc*"
+    publishDir "${params.steps_2_and_3_input_directory}/multiqc_input/pycoqc_filtered/", mode: 'copy', overwrite: true, pattern: "*-Filtered_pycoqc*"
 
     label 'cpu'
 
@@ -55,7 +55,7 @@ process PYCOQC_FILTER {
         path(filtered_flagstat)
 	path(seq_summary)
         val(quality_score)
-        path(unfiltere_pyco_json)
+        path(unfiltered_pyco_json)
 
 
     output:

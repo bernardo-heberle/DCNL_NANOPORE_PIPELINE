@@ -158,7 +158,7 @@ process BASECALL_CPU_DEMUX {
 process BASECALL_GPU {
 
     publishDir "results/${params.out_dir}/basecalling_output/", mode: "copy", overwrite: true    
-    
+   
     label 'gpu'
     
     input:
@@ -213,7 +213,6 @@ process BASECALL_GPU {
 process BASECALL_GPU_DEMUX {
 
     publishDir "results/${params.out_dir}/basecalling_output/", mode: "copy", overwrite: true
-
 
     label 'gpu'
 

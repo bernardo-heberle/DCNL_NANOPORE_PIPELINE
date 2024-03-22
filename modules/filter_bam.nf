@@ -1,7 +1,7 @@
 process FILTER_BAM {
 
-    publishDir "results/${params.out_dir}/bam_filtering/", mode: "copy", pattern: "*.ba*", overwrite: true
-    publishDir "results/${params.out_dir}/multiQC_input/minimap2/", mode: "copy", pattern: "*.*stat", overwrite: true
+    publishDir "${params.steps_2_and_3_input_directory}/bam_filtering/", mode: "copy", pattern: "*.ba*", overwrite: true
+    publishDir "${params.steps_2_and_3_input_directory}/multiqc_input/minimap2/", mode: "copy", pattern: "*.*stat", overwrite: true
      
 
     label 'cpu'
@@ -13,11 +13,11 @@ process FILTER_BAM {
 
     output:
         val("${id}"), emit: id
-        path("*-Unfiltered*.bam"), emit: total_bam 
-        path("*-Unfiltered*.bai"), emit: total_bai
+        path("*-Unfiltered.bam"), emit: total_bam 
+        path("*-Unfiltered.bam.bai"), emit: total_bai
         path("*-Filtered*.bam"), emit: filtered_bam
         path("*-Filtered*.bai"), emit: filtered_bai
-        path("*-Unfiltered*.flagstat"), emit: unfiltered_flagstat
+        path("*-Unfiltered.flagstat"), emit: unfiltered_flagstat
         path("*-Filtered*.flagstat"), emit: filtered_flagstat
         path("${txt}"), emit: txt
         path("*.*stat"), emit: multiqc

@@ -1,6 +1,6 @@
 process MULTIQC {
 
-    publishDir "results/${params.out_dir}/multiQC_output", mode: "copy", overwrite: true
+    publishDir "${params.steps_2_and_3_input_directory}/multiQC_output", mode: "copy", overwrite: true
 
     label 'cpu'
 

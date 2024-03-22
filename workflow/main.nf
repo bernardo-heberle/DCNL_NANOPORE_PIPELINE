@@ -16,7 +16,7 @@ basecall quality score threshold for basecalling                               :
 basecall demultiplexing                                                        : ${params.basecall_demux}
 trim barcodes during demultiplexing                                            : ${params.trim_barcode}
 submission output file prefix                                                  : ${params.prefix}
-GPU device for submission							: ${params.gpu_devices}
+GPU device for submission   						       : ${params.gpu_devices}
 
 Output directory                                                               : ${params.out_dir}
 
@@ -50,7 +50,6 @@ MAPQ filtering threshold							                        : ${params.mapq}
 Input directory - should be the Output Directory from step 1 and Input Directory from step 2           : ${params.steps_2_and_3_input_directory}
 
 MultiQC configuration file (provided, but may need to be altered for different use cases)              : ${params.multiqc_config}
-
 
 ======================================================================================================================================================================================
  

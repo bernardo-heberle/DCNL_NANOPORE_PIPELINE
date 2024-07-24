@@ -1,8 +1,8 @@
 process MAKE_QC_REPORT {
     
-    publishDir "${params.steps_2_and_3_input_directory}/intermediate_qc_reports/number_of_reads/", pattern: "*num_reads.tsv", mode: "copy", overwrite: true
-    publishDir "${params.steps_2_and_3_input_directory}/intermediate_qc_reports/read_length/", pattern: "*length.tsv", mode: "copy", overwrite: true
-    publishDir "${params.steps_2_and_3_input_directory}/intermediate_qc_reports/quality_score_thresholds/", pattern: "*thresholds.tsv", mode: "copy", overwrite: true
+    publishDir "results/${params.out_dir}/intermediate_qc_reports/number_of_reads/", pattern: "*num_reads.tsv", mode: "copy", overwrite: true
+    publishDir "results/${params.out_dir}/intermediate_qc_reports/read_length/", pattern: "*length.tsv", mode: "copy", overwrite: true
+    publishDir "results/${params.out_dir}/intermediate_qc_reports/quality_score_thresholds/", pattern: "*thresholds.tsv", mode: "copy", overwrite: true
     
     label 'cpu'
 

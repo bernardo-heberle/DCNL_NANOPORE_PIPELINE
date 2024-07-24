@@ -2,7 +2,7 @@
 nextflow.enable.dsl=2
 
 
-if (params.step == 1) {
+if (params.step.toString() == "1") {
 log.info """
                         STEP 1 - OXFORD NANOPORE DNA SEQUENCING BASECALLING AND ALIGNMENT - Bernardo Aguzzoli Heberle
 ======================================================================================================================================================================================
@@ -23,9 +23,9 @@ Output directory                                                               :
 ======================================================================================================================================================================================
  
 """ 
- } else if (params.step == 2) {
+ } else if (params.step.toString() == "2_from_step_1" || params.step.toString() == "2_from_minknow") {
 
-"""
+log.info """
                            STEP 2 - FILTERING AND QUALITY CONTROL - Bernardo Aguzzoli Heberle
 ======================================================================================================================================================================================
 
@@ -35,15 +35,16 @@ Basecall quality score threshold for basecalling (make sure it is the same as in
  
 MAPQ filtering threshold							                        : ${params.mapq}
 
+Minimum number of mapped reads per sample/barcode for a file to be included in analysis			: ${params.min_mapped_reads_thresh}
 ======================================================================================================================================================================================
  
 """
 
 
- } else if (params.step == 3) {
+ } else if (params.step.toString() == "3") {
 
 
-"""
+log.info """
                         STEP 3 - METHYLATION CALLING AND MULTIQC REPORT - Bernardo Aguzzoli Heberle
 =======================================================================================================================================================================================
  
@@ -59,7 +60,7 @@ MultiQC configuration file (provided, but may need to be altered for different u
 
  } else {
 
-    println "ERROR: You must set parameter --step to an integer between 1 and 3" 
+    println "ERROR: You must set parameter --step to '1' or '2_from_step_1' or '2_from_minknow' or '3'. Please refer to documentation at: https://github.com/bernardo-heberle/DCNL_NANOPORE_PIPELINE"
     System.exit(1)
 
  }
@@ -68,13 +69,14 @@ MultiQC configuration file (provided, but may need to be altered for different u
 
 // Import Workflows
 include {BASECALLING} from '../sub_workflows/BASECALLING'
-include {FILTERING_AND_QC} from '../sub_workflows/FILTERING_AND_QC.nf'
+include {FILTERING_AND_QC_FROM_STEP_1} from '../sub_workflows/FILTERING_AND_QC_FROM_STEP_1.nf'
+include {FILTERING_AND_QC_FROM_MINKNOW} from '../sub_workflows/FILTERING_AND_QC_FROM_MINKNOW.nf'
 include {MODKIT_AND_MULTIQC} from '../sub_workflows/MODKIT_AND_MULTIQC.nf'
 
 
 // Define initial files and channels
 
-if (params.step == 1) {
+if (params.step.toString() == "1") {
 
     if (params.prefix == "None") {
 
@@ -102,17 +104,25 @@ if (params.step == 1) {
 
 }
 
-else if (params.step == 2) {
+else if (params.step.toString() == "2_from_step_1") {
 
-    total_bams = Channel.fromPath("${params.steps_2_and_3_input_directory}/basecalling_output/*.bam").map {file -> tuple(file.baseName, file) }.toSortedList( { a, b -> a[0] <=> b[0] } ).flatten().buffer(size:2)
+    total_bams = Channel.fromPath("${params.steps_2_and_3_input_directory}/basecalling_output/*.bam").map {file -> tuple(file.baseName, file) }.toSortedList( { a, b -> a[0] <=> b[0] } ).flatten().buffer(size:2) 
+
     txts = Channel.fromPath("${params.steps_2_and_3_input_directory}/basecalling_output/*.txt").toSortedList( { a, b -> a.baseName <=> b.baseName } ).flatten()
     mapq = Channel.value(params.mapq)
     quality_score = Channel.value(params.qscore_thresh)
 
 }
 
+else if (params.step.toString() == "2_from_minknow") {
 
-else if (params.step == 3) {
+    input_dir = Channel.fromPath("${params.steps_2_and_3_input_directory}/")
+    mapq = Channel.value(params.mapq)
+    quality_score = Channel.value(params.qscore_thresh)
+
+}
+
+else if (params.step.toString() == "3") {
 
     
     filtered_bams = Channel.fromPath("${params.steps_2_and_3_input_directory}/bam_filtering/*-Filtered*.bam").map {file -> tuple(file.baseName, file) }.toSortedList( { a, b -> a[0] <=> b[0] } ).flatten().buffer(size:2) 
@@ -130,18 +140,24 @@ else if (params.step == 3) {
 
 workflow {
 
-    if (params.step == 1) {
+    if (params.step.toString() == "1") {
 
         BASECALLING(pod5_path, fast5_path, basecall_speed, basecall_mods, basecall_config, basecall_trim, quality_score, trim_barcode, devices, ref)
     }
 
-    else if (params.step == 2) {
+    else if (params.step.toString() == "2_from_step_1") {
 
-        FILTERING_AND_QC(total_bams, txts, mapq, quality_score)
+        FILTERING_AND_QC_FROM_STEP_1(total_bams, txts, mapq, quality_score)
 
     }
 
-    else if (params.step == 3) {
+    else if (params.step.toString() == "2_from_minknow") {
+
+        FILTERING_AND_QC_FROM_MINKNOW(input_dir, mapq, quality_score)
+
+    }
+
+    else if (params.step.toString()== "3") {
     
         MODKIT_AND_MULTIQC(filtered_bams, filtered_bais, num_reads, read_length, quality_thresholds, multiqc_config, multiqc_input)
 

@@ -4,7 +4,7 @@ include {PYCOQC_NO_FILTER ; PYCOQC_FILTER} from '../modules/pycoqc.nf'
 include {FILTER_BAM} from '../modules/filter_bam.nf'
 include {MAKE_QC_REPORT} from '../modules/num_reads_report.nf'
 
-workflow FILTERING_AND_QC {
+workflow FILTERING_AND_QC_FROM_STEP_1 {
         
     take:
         bams

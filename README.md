@@ -43,8 +43,9 @@ echo "" >> ~/.bash_profile && echo 'NXF_SINGULARITY_CACHEDIR="/<your>/<desired>/
 Many of the parameters for this step are based on dorado basecaller, see their [documentation](https://github.com/nanoporetech/dorado) to understand it better.
 
 ```
---step                         <Type: Integer. Options are integers 1, 2, 3. Select 1 for basecalling. Select 2 for alignment
-                                 filtering and quality control. Select 3 for methylation call pre-processing
+--step                         <Type: String. Options are "1", "2_from_step_1", "2_from_minknow", "3". Select 1 for basecalling. Select "2_from_step_1" for alignment
+                                 filtering and quality control continuing after executing step 1 of this pipeline. Select "2_from_minknow" for alignment
+                                 filtering and quality control from input basecalled using MinKNOW. Select "3" for methylation call pre-processing
                                  with modkit and generating a thorough multiQC report for sequencing stats.
                                  This parameter needs to be set for the pipeline to run. Default: "None">
 
@@ -97,10 +98,11 @@ Many of the parameters for this step are based on dorado basecaller, see their [
 ## Parameters for step 2 (Alignment Filtering and Quality Control):
 
 ```
---step                                  <Type: Integer. Options are integers 1, 2, 3. Select 1 for basecalling. Select 2 for alignment
-                                        filtering and quality control. Select 3 for methylation call pre-processing
-                                        with modkit and generating a thorough multiQC report for sequencing stats.
-                                        This parameter needs to be set for the pipeline to run. Default: "None">
+--step                                   <Type: String. Options are "1", "2_from_step_1", "2_from_minknow", "3". Select 1 for basecalling. Select "2_from_step_1" for alignment
+                                           filtering and quality control continuing after executing step 1 of this pipeline. Select "2_from_minknow" for alignment
+                                           filtering and quality control from input basecalled using MinKNOW. Select "3" for methylation call pre-processing
+                                           with modkit and generating a thorough multiQC report for sequencing stats.
+                                           This parameter needs to be set for the pipeline to run. Default: "None">
 
 --steps_2_and_3_input_directory          <This parameter must be set to the output path of step 1 set with the out_dir parameter.
                                           For example "./results/<out_dir>". Default = "None">
@@ -108,18 +110,24 @@ Many of the parameters for this step are based on dorado basecaller, see their [
 --qscore_thresh                          <Mean quality score threshold for basecalled reads to be considered passing.
                                            Should be set to the same value specified in step 1. Default: 9>
 
---mapq                                   <Type: nteger, set it to the number you want to be used to filter ".bam" file by mapq. --mapq 10 filters out reads
+--mapq                                   <Type: Integer. Set it to the number you want to be used to filter ".bam" file by mapq. --mapq 10 filters out reads
                                           with MAPQ < 10. set it to 0 if don't want to filter out any reads. Default: 10>
+
+--min_mapped_reads_thresh                <Type: Integer. Minimum number of primary mapped reads at or above MAPQ threshold for a barcode/sample to be considered
+                                           valid for downstream analysis. Files below this threshold will not be processed any further. The default value is a
+                                            good rule of thumb, but it can be decreased for small test datasets or increased for very large sequencing runs.
+                                            Default: 500>
 ```                           
 
 
 ## Parameters for step 2 (Methylation Calling and MultiQC):
 
 ```
---step                                       <Type: Integer. Options are integers 1, 2, 3. Select 1 for basecalling. Select 2 for alignment
-                                             filtering and quality control. Select 3 for methylation call pre-processing
-                                             with modkit and generating a thorough multiQC report for sequencing stats.
-                                             This parameter needs to be set for the pipeline to run. Default: "None">
+--step                                   <Type: String. Options are "1", "2_from_step_1", "2_from_minknow", "3". Select 1 for basecalling. Select "2_from_step_1" for alignment
+                                           filtering and quality control continuing after executing step 1 of this pipeline. Select "2_from_minknow" for alignment
+                                           filtering and quality control from input basecalled using MinKNOW. Select "3" for methylation call pre-processing
+                                           with modkit and generating a thorough multiQC report for sequencing stats.
+                                           This parameter needs to be set for the pipeline to run. Default: "None">
 
 --steps_2_and_3_input_directory             <Type: Path. This parameter must be set to the output path of step 1 set with the out_dir parameter.
                                              Must also be set to the same as the steps_2_and_3_input_directory for step 2.
@@ -156,7 +164,7 @@ nextflow ../DCNL_NANOPORE_PIPELINE/workflow/main.nf --basecall_path "../data/tes
 ```
 nextflow ../DCNL_NANOPORE_PIPELINE/workflow/main.nf \
           --steps_2_and_3_input_directory "./results/test_basecall_gpu_no_demux_mouse/" \
-          --qscore_thresh 9 --mapq 10 --step 2 -resume
+          --qscore_thresh 9 --mapq 10 --step "2_from -resume
 ```
 
 ### STEP 3: Methylation calling and MultiQC report:

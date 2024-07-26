@@ -24,11 +24,10 @@ process CONVERT_INPUT_FROM_MINKNOW {
         fi
 
         # Find all 'pass' directories, follow symlinks with -L
-        find -L "\${input_dir}" -type d \\( -name 'pass' -o -name '*pass*' \\) -print0 | while IFS= read -r -d '' pass_dir; do
-            # Find all 'barcode' directories within each 'pass' directory
-            find -L "\$pass_dir" -type d -name '*barcode*' -print0 | while IFS= read -r -d '' barcode_dir; do
-
-                # Get the name of the directory two levels above the barcode directory
+	find -L "\${input_dir}" -type d \\( -name 'pass' -o -name '*pass*' \\) -print0 | while IFS= read -r -d '' pass_dir; do 
+	    # Find all 'barcode' directories within each 'pass' directory
+            find -L "\$pass_dir" -type d -name '*barcode*' -print0 -o -type d -name '*unclassified*' -print0 | while IFS= read -r -d '' barcode_dir; do 
+		# Get the name of the directory two levels above the barcode directory
                 parent_dir_two_above=\$(basename \$(dirname \$(dirname "\$barcode_dir")))
 
                 # Check if the barcode directory contains any BAM files

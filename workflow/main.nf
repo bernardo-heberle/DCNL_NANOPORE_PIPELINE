@@ -36,6 +36,8 @@ Basecall quality score threshold for basecalling (make sure it is the same as in
 MAPQ filtering threshold							                        : ${params.mapq}
 
 Minimum number of mapped reads per sample/barcode for a file to be included in analysis			: ${params.min_mapped_reads_thresh}
+
+Are input bam files barcoded? (Only relevant to "step_2_from_minknow" option)				: ${params.is_barcoded}
 ======================================================================================================================================================================================
  
 """

@@ -226,7 +226,10 @@ nextflow ../DCNL_NANOPORE_PIPELINE/workflow/main.nf \
 
 10. **multiQC_output** - MultiQC output files, most importantly the ".html" report showing summary statistics for all file.
 
+11. **calculate_coverage** - Two .tsv files containing the average coverage for each sample across every chromosome of the reference genome used. If a value is not present for a sample
+                              that means that chromosome had 0 coverage in that sample. 
 
-11. **minknow_converted_input** - Merged .bam files and sequencing_summary.txt files for each barcode.
+
+13. **minknow_converted_input** - Merged .bam files and sequencing_summary.txt files for each barcode.
 
 

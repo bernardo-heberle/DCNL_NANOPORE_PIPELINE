@@ -6,6 +6,7 @@ process MULTIQC {
 
     input:
         path(multiqc_input)
+	path(merged_coverage)
         path(multiqc_config)
     
     output: 

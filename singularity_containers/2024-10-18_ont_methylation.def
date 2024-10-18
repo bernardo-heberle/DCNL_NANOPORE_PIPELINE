@@ -1,0 +1,79 @@
+Bootstrap: library
+From: library://bernardo-a-heberle/dcnl/ont_methylation:sha256.d4ccdf4552bfc4cdbb4ad0908bd20a8e537ac50281d1f722402c5d7204c705b2 
+
+%post
+
+        ## Make Shell Noninteractive ##
+        DEBIAN_FRONTEND=noninteractive
+
+	
+	## UPDATE MODKIT ##
+	cd /
+	cargo uninstall --root /modkit mod_kit	
+	cd /modkit
+	rm -rf /modkit/
+	rm -rf /tmp/cargo-installIU2Nbt
+	cd /
+
+	## Reinstall Modkit update ##
+    	mkdir /opt/modkit
+    	cd /opt/modkit
+    	wget https://github.com/nanoporetech/modkit/releases/download/v0.4.1/modkit_v0.4.1_u16_x86_64.tar.gz
+    	tar -xzf modkit_v0.4.1_u16_x86_64.tar.gz
+    	rm modkit_v0.4.1_u16_x86_64.tar.gz
+    	echo 'export PATH="/opt/modkit/dist_modkit_v0.4.1_cec0a0b:$PATH"' >> $APPTAINER_ENVIRONMENT
+	
+
+	## Uninstall Dorado ##
+ 	cd /	
+	rm -rf /installations/
+
+
+	## Install Dorado ##
+	cd /
+	mkdir installations
+	cd /installations/
+	wget https://cdn.oxfordnanoportal.com/software/analysis/dorado-0.8.1-linux-x64.tar.gz
+	tar -xzvf dorado-0.8.1-linux-x64.tar.gz
+	echo 'export PATH="/installations/dorado-0.8.1-linux-x64/bin/:$PATH"' >> $SINGULARITY_ENVIRONMENT	
+
+%test
+		
+	## Check if installations are on path and/or display their versions ##
+	dorado --version # Dorado
+	pod5 --version # Pod5 converter	
+	samtools --version # Samtools
+	modkit --version # Modkit
+	pycoQC --version #pycoQC
+	multiqc --version #multiQC
+	bedtools --version #bedtools
+	jq --version	#jq
+	
+%labels
+	author Joao Chrusciel
+	version v0.3.0
+
+%help
+
+	Software included in the container are:
+
+	dorado==0.8.1
+	modkit==0.4.1
+	samtools==1.19.2
+	python==3.12.2
+		pod5==0.3.6
+		pycoQC==2.5.2
+        conda==24.1.2
+        pip==23.3.1
+ 	bedtools==2.31.1
+	multiqc==1.17
+	jq==1.6	 
+	
+
+        NOTE THAT VERSIONS OF THE SOFTWARE INSTALLED WILL CHANGE THROUGH TIME IF YOU BUILD THE IMAGE FROM THE RECIPE FILE.
+        TO GET THE ORIGINAL VERSION OF THIS CONTAINER PULL IT FROM THE SINGULARITY LIB WITH THE COMMAND:
+	
+	singularity pull --arch amd64 library://joaochrusciel/nanopore/ont_methylation:2024-10-18	
+	
+	For more information about the use of this singularity container access: https://github.com/bernardo-heberle/DCNL_NANOPORE_PIPELINE
+

@@ -18,7 +18,7 @@ process MODKIT {
 	echo "starting modkit"
  
         ## Make Methylation TSV file
-        modkit extract --queue-size 1000 -t 4 -i 10000 "${bam}" "${id}_modkit_output.tsv" --read-calls "${id}_modkit_calls.tsv"
+        modkit extract full --queue-size 1000 -t 4 -i 10000 --mapped-only "${bam}" "${id}_modkit_output.tsv"
 
 	echo "extract successful"
 	
